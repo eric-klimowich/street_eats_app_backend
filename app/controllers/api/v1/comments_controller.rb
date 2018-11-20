@@ -27,7 +27,7 @@ class Api::V1::CommentsController < ApplicationController
   private
 
   def comment_params
-    params.permit(:content, :likes, :dislikes, :food_stop_id, :user_id)
+    params.permit(:content, :likes, :dislikes, :restaurant_id, :user_id)
   end
 
   def find_comment
