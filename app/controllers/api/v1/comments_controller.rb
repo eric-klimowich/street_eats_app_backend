@@ -16,8 +16,7 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def update
-    @comment.update(comment_params)
-    if @comment.save
+    if @comment.update(comment_params)
       render json: @comment, status: :accepted
     else
       render json: { errors: @comment.errors.full_messages }, status: :unprocessible_entity

@@ -8,7 +8,7 @@ class Api::V1::RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.create(restaurant_params)
-    if @restaurant.save
+    if @restaurant.valid?
       render json: @restaurant, status: :accepted
     else
       render json: { errors: @restaurant.errors.full_messages }, status: :unprocessible_entity
@@ -16,8 +16,7 @@ class Api::V1::RestaurantsController < ApplicationController
   end
 
   def update
-    @restaurant.update(restaurant_params)
-    if @restaurant.save
+    if @restaurant.update(restaurant_params)
       render json: @restaurant, status: :accepted
     else
       render json: { errors: @restaurant.errors.full_messages }, status: :unprocessible_entity
@@ -27,10 +26,10 @@ class Api::V1::RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-    params.permit(:name, :location, :type, :likes, :photo, :user_id)
+    params.permit(:name, :location, :food_type, :likes, :photo, :user_id)
   end
 
-  def find_food_stop
+  def find_restaurant
     @restaurant = Restaurant.find(params[:id])
   end
 end
